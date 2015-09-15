@@ -11,7 +11,7 @@ import CoreMotion
 import AudioToolbox
 
 typealias EnemyHitHandler = ( (SKNode,SKNode) -> Void)
-typealias PlayerHitHandler = ((SKNode,SKNode) -> Void)
+typealias PlayerHitHandler = ((SKNode,SKNode,CGPoint) -> Void)
 
 let laserShotBitMask:UInt32 = 0x01
 let enemyBitMask:UInt32 = 0x02
@@ -46,7 +46,7 @@ class GameScene: SKScene {
         
         updateScoreLabel()
         
-        updateLivesLabel()
+        updateEnergyMeter()
         
         bgMusic.playSound()
 
@@ -115,14 +115,32 @@ class GameScene: SKScene {
         })
     }
     
-    func playerHit(player:SKNode,hitObject:SKNode) {
-        lives--
-        updateLivesLabel()
+    let hitAtlas = HitAtlas()
+    
+    func playerHit(player:SKNode,hitObject:SKNode,contactPoint:CGPoint) {
+        energy--
+        updateEnergyMeter()
         hitObject.removeFromParent()
+        
+        // Vibrate device
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-        if (lives < 1) {
+        
+        // Animate a hit on the player ship
+        var pointInSprite = player.convertPoint(contactPoint, fromNode: self)
+        var hit = SKSpriteNode(texture: hitAtlas.laserBlue08())
+        hit.position = pointInSprite
+        hit.zPosition = 10
+        player.addChild(hit)
+        let expl = SKAction.animateWithTextures(hitAtlas.laserBlue(), timePerFrame: 0.05)
+        hit.runAction(expl, completion: { () -> Void in
+            hit.removeFromParent()
+        })
+        
+        if (energy < 1) {
             endGame()
         }
+
+
     }
     
     func endGame() {
@@ -198,11 +216,19 @@ class GameScene: SKScene {
         scoreLabel.text = "Score: \(score)"
     }
     
-    var lives = 5
-    let livesLabel = SKLabelNode(fontNamed:"Chalkduster")
+    var energy = 5
+    let energyLabel = SKLabelNode(fontNamed:"Lucida Grande")
+    let energyMeter = SKLabelNode(fontNamed:"Lucida Grande")
     
-    func updateLivesLabel() {
-        livesLabel.text = "Lives: \(lives)"
+    func updateEnergyMeter() {
+        var energyBar = ""
+        if (energy > 0)
+        {
+            for i in 0...energy-1 {
+                energyBar += "❤️"
+            }
+        }
+        energyMeter.text = energyBar
     }
 
     func setupScorebar()
@@ -210,9 +236,12 @@ class GameScene: SKScene {
         scoreLabel.fontSize = 25;
         scoreLabel.position = CGPointMake(100,0)
         self.addChild(scoreLabel)
-        livesLabel.fontSize = 25;
-        livesLabel.position = CGPointMake(self.frame.width-200,0)
-        self.addChild(livesLabel)
+        energyLabel.fontSize = 25;
+        energyLabel.position = CGPointMake(self.frame.width-200,0)
+        self.addChild(energyLabel)
+        energyMeter.fontSize = 25;
+        energyMeter.position = CGPointMake(self.frame.width-250,0)
+        self.addChild(energyMeter)
     }
 
 

@@ -23,6 +23,9 @@
 		803D5A9A1BA7454A0085E509 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D5A991BA7454A0085E509 /* GameOverScene.swift */; };
 		808DEF771BA88798006BE94B /* BackgroundGfx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DEF761BA88798006BE94B /* BackgroundGfx.swift */; };
 		808DEF791BA889A2006BE94B /* ExplosionPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DEF781BA889A2006BE94B /* ExplosionPlayer.swift */; };
+		808DEF7F1BA8B3DA006BE94B /* HitAtlas.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 808DEF7C1BA8B3DA006BE94B /* HitAtlas.1.png */; };
+		808DEF801BA8B3DA006BE94B /* HitAtlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 808DEF7D1BA8B3DA006BE94B /* HitAtlas.plist */; };
+		808DEF811BA8B3DA006BE94B /* HitAtlas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DEF7E1BA8B3DA006BE94B /* HitAtlas.swift */; };
 		80F415F31BA6944F0012F0EB /* ArturiaMood1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80F415F21BA6944F0012F0EB /* ArturiaMood1.mp3 */; };
 		80F415F51BA694790012F0EB /* BackgroundMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F415F41BA694790012F0EB /* BackgroundMusic.swift */; };
 		80F415F71BA6A23D0012F0EB /* LaserShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F415F61BA6A23D0012F0EB /* LaserShot.swift */; };
@@ -67,6 +70,9 @@
 		803D5A991BA7454A0085E509 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		808DEF761BA88798006BE94B /* BackgroundGfx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGfx.swift; sourceTree = "<group>"; };
 		808DEF781BA889A2006BE94B /* ExplosionPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplosionPlayer.swift; sourceTree = "<group>"; };
+		808DEF7C1BA8B3DA006BE94B /* HitAtlas.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HitAtlas.1.png; sourceTree = "<group>"; };
+		808DEF7D1BA8B3DA006BE94B /* HitAtlas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HitAtlas.plist; sourceTree = "<group>"; };
+		808DEF7E1BA8B3DA006BE94B /* HitAtlas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitAtlas.swift; sourceTree = "<group>"; };
 		80F415F21BA6944F0012F0EB /* ArturiaMood1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ArturiaMood1.mp3; sourceTree = "<group>"; };
 		80F415F41BA694790012F0EB /* BackgroundMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusic.swift; sourceTree = "<group>"; };
 		80F415F61BA6A23D0012F0EB /* LaserShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaserShot.swift; sourceTree = "<group>"; };
@@ -119,6 +125,8 @@
 		8000037E1BA5FB4600D07555 /* BlasterMaster */ = {
 			isa = PBXGroup;
 			children = (
+				808DEF7B1BA8B3DA006BE94B /* HitAtlas.atlasc */,
+				808DEF7E1BA8B3DA006BE94B /* HitAtlas.swift */,
 				800003811BA5FB4700D07555 /* AppDelegate.swift */,
 				800003831BA5FB4700D07555 /* GameScene.sks */,
 				800003851BA5FB4700D07555 /* GameScene.swift */,
@@ -172,6 +180,15 @@
 				8000039A1BA5FB4700D07555 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		808DEF7B1BA8B3DA006BE94B /* HitAtlas.atlasc */ = {
+			isa = PBXGroup;
+			children = (
+				808DEF7C1BA8B3DA006BE94B /* HitAtlas.1.png */,
+				808DEF7D1BA8B3DA006BE94B /* HitAtlas.plist */,
+			);
+			path = HitAtlas.atlasc;
 			sourceTree = "<group>";
 		};
 		80F416001BA714980012F0EB /* ExplosionAtlas.atlasc */ = {
@@ -265,11 +282,13 @@
 			files = (
 				80F415F31BA6944F0012F0EB /* ArturiaMood1.mp3 in Resources */,
 				800003901BA5FB4700D07555 /* LaunchScreen.xib in Resources */,
+				808DEF7F1BA8B3DA006BE94B /* HitAtlas.1.png in Resources */,
 				8000038D1BA5FB4700D07555 /* Images.xcassets in Resources */,
 				803D5A941BA741400085E509 /* StartScene.sks in Resources */,
 				80F416031BA714980012F0EB /* ExplosionAtlas.1.png in Resources */,
 				80F416041BA714980012F0EB /* ExplosionAtlas.plist in Resources */,
 				80F416091BA71A600012F0EB /* Expl1.caf in Resources */,
+				808DEF801BA8B3DA006BE94B /* HitAtlas.plist in Resources */,
 				800003841BA5FB4700D07555 /* GameScene.sks in Resources */,
 				8000038B1BA5FB4700D07555 /* Main.storyboard in Resources */,
 				803D5A961BA741570085E509 /* GameOverScene.sks in Resources */,
@@ -294,6 +313,7 @@
 				80F415FF1BA6EEA90012F0EB /* EnemyShot.swift in Sources */,
 				808DEF771BA88798006BE94B /* BackgroundGfx.swift in Sources */,
 				80F415FB1BA6A8F30012F0EB /* CollisionDetector.swift in Sources */,
+				808DEF811BA8B3DA006BE94B /* HitAtlas.swift in Sources */,
 				800003861BA5FB4700D07555 /* GameScene.swift in Sources */,
 				800003881BA5FB4700D07555 /* GameViewController.swift in Sources */,
 				800003A61BA6059000D07555 /* SpaceShip.swift in Sources */,

@@ -118,6 +118,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         
         var error:NSError?
         avPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
+        avPlayer.volume = 0.5
         avPlayer.prepareToPlay()
         avPlayer.play()
         avPlayer.delegate = self

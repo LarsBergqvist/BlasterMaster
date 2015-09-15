@@ -28,19 +28,19 @@ class CollisionDetector : NSObject, SKPhysicsContactDelegate {
             }
             else if ( name1 == SpaceShip.SpriteName() && name2 == Enemy.SpriteName())
             {
-                playerHitHandler?(node1,node2)
+                playerHitHandler?(node1,node2,contact.contactPoint)
             }
             else if ( name2 == Enemy.SpriteName() && name1 == SpaceShip.SpriteName())
             {
-                playerHitHandler?(node2,node1)
+                playerHitHandler?(node2,node1,contact.contactPoint)
             }
             else if ( name1 == SpaceShip.SpriteName() && name2 == EnemyShot.SpriteName())
             {
-                playerHitHandler?(node1,node2)
+                playerHitHandler?(node1,node2,contact.contactPoint)
             }
             else if ( name2 == EnemyShot.SpriteName() && name1 == SpaceShip.SpriteName())
             {
-                playerHitHandler?(node2,node1)
+                playerHitHandler?(node2,node1,contact.contactPoint)
             }
 
         }

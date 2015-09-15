@@ -50,7 +50,7 @@ class EnemySpawner: NSObject {
         parentNode?.enumerateChildNodesWithName("*") {
             node,stop in
             if let name = node.name {
-                if (name == "enemy" || name == "enemyshot") {
+                if (name == Enemy.SpriteName() || name == EnemyShot.SpriteName()) {
                     var finalPos = -80.0
                     
                     if (node.position.y <= CGFloat(finalPos)) {

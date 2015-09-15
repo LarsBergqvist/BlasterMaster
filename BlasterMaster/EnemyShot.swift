@@ -10,6 +10,11 @@ import Foundation
 import SpriteKit
 
 class EnemyShot {
+
+    class func SpriteName() -> String {
+        return "enemyshot"
+    }
+
     var laserSprite = SKSpriteNode(imageNamed: "laserRed13")
     var parent:SKNode?
     var position:CGPoint = CGPointMake(0, 0)
@@ -25,7 +30,7 @@ class EnemyShot {
 //        laserSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: laserSprite.size)
         laserSprite.physicsBody?.dynamic = true
         laserSprite.physicsBody?.allowsRotation = false
-        laserSprite.name = "enemyshot"
+        laserSprite.name = EnemyShot.SpriteName()
         
         
         laserSprite.physicsBody?.categoryBitMask = enemyShotBitMask

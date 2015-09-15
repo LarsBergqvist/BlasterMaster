@@ -10,6 +10,11 @@ import Foundation
 import SpriteKit
 
 class LaserShot {
+    
+    class func SpriteName() -> String {
+        return "lasershot"
+    }
+
     var laserSprite = SKSpriteNode(imageNamed: "laserBlue01")
     var parent:SKNode?
     var position:CGPoint = CGPointMake(0, 0)
@@ -23,7 +28,7 @@ class LaserShot {
         laserSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: laserSprite.size)
         laserSprite.physicsBody?.dynamic = true
         laserSprite.physicsBody?.allowsRotation = false
-        laserSprite.name = "lasershot"
+        laserSprite.name = LaserShot.SpriteName()
 
         
         laserSprite.physicsBody?.categoryBitMask = laserShotBitMask

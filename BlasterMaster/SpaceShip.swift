@@ -12,6 +12,10 @@ import AVFoundation
 
 class SpaceShip : NSObject, AVAudioPlayerDelegate {
 
+    class func SpriteName() -> String {
+        return "player"
+    }
+    
     enum HorizontalAction {
         case None
         case MoveLeft
@@ -49,7 +53,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         shipSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: shipSprite.size)
         shipSprite.physicsBody?.dynamic = true
         shipSprite.physicsBody?.allowsRotation = false
-        shipSprite.name = "player"
+        shipSprite.name = SpaceShip.SpriteName()
 
         shipSprite.physicsBody?.categoryBitMask = playerBitMask
         shipSprite.physicsBody?.collisionBitMask = enemyBitMask
@@ -126,7 +130,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         shipSprite.parent?.enumerateChildNodesWithName("*") {
             node,stop in
             if let name = node.name {
-                if (name == "lasershot") {
+                if (name == LaserShot.SpriteName()) {
                     var finalPos = node.parent?.frame.height
 
                     if (node.position.y >= finalPos) {

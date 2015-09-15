@@ -22,22 +22,18 @@ let enemyShotBitMask:UInt32 = 0x08
 class GameScene: SKScene {
     
     let spaceShip:SpaceShip = SpaceShip(initialYPos: 100.0)
-    
     let motionManager: CMMotionManager = CMMotionManager()
-        
     var enemySpawner:EnemySpawner?
-    
     var collisionDetector : CollisionDetector?
-    
     var bgHeight:CGFloat = 0.0
-    
     let bgMusic = BackGroundMusic()
+    var bgGfx:BackgroundGfx?
+    let explosionPlayer = ExplosionPlayer()
 
 
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
 
-        setupBackgroup(self)
+        bgGfx = BackgroundGfx(parent:self)
 
         
         self.anchorPoint = CGPointMake(0, 0)
@@ -79,7 +75,7 @@ class GameScene: SKScene {
         score++
         updateScoreLabel()
         
-        playSound()
+        explosionPlayer.playSound()
         
         let expl = SKAction.animateWithTextures(explosion.expl_01_(), timePerFrame: 0.05)
         
@@ -88,8 +84,6 @@ class GameScene: SKScene {
             enemyNode.removeFromParent()
             
         })
-        
-
     }
     
     func playerHit(player:SKNode,hitObject:SKNode) {
@@ -126,26 +120,6 @@ class GameScene: SKScene {
         }
     }
     
-    var avPlayer = AVAudioPlayer()
-    
-    func playSound(){
-        
-        var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Expl1", ofType: "caf")!)
-        
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
-        avPlayer.volume = 1.0
-        avPlayer.prepareToPlay()
-        avPlayer.play()
-    }
-
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        spaceShip.moveLeft = false
-//        spaceShip.moveRight = false
-    }
    
     var waitCounter = 0
     override func update(currentTime: CFTimeInterval) {
@@ -159,8 +133,7 @@ class GameScene: SKScene {
             waitCounter = 0
         }
         waitCounter++
-//        spaceShip.shipSprite.position.y = CGFloat(playerYPos)
-        scrollBackground()
+        bgGfx?.scrollBackground()
 
     }
     
@@ -231,48 +204,6 @@ class GameScene: SKScene {
         livesLabel.text = "Lives: \(lives)"
     }
 
-    var scrollPos = 0
-    func scrollBackground() {
-        
-        scrollPos++
-        var restore = false
-        if (CGFloat(scrollPos) > bgHeight) {
-            scrollPos=0
-            restore=true
-        }
-        
-        self.enumerateChildNodesWithName("*") {
-            node,stop in
-            if let name = node.name {
-                if (name == "background") {
-                    if (restore) {
-                        node.position.y += self.bgHeight
-                    }
-                    else {
-                        node.position.y--
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    func setupBackgroup(parent:SKNode) {
-        for j in 0...3 {
-            
-            for i in 0...1 {
-                var bg = SKSpriteNode(imageNamed: "blue")
-                bg.xScale = 2.0
-                bg.yScale = 2.0
-                bg.anchorPoint = CGPointZero
-                bg.position = CGPointMake(CGFloat(i) * bg.size.width, CGFloat(j)*bg.size.height)
-                bg.name = "background"
-                bg.zPosition = -10
-                bgHeight = bg.size.height
-                parent.addChild(bg)
-            }
-        }
-    }
 
 
 }

@@ -15,7 +15,9 @@ class Enemy : NSObject {
     var enemySprite:SKSpriteNode?
     var timer = NSTimer()
     
-    let spriteName = "enemy"
+    class func SpriteName() -> String {
+        return "enemy"
+    }
     
     init(imageName:String,canFire:Bool) {
         super.init()
@@ -24,7 +26,7 @@ class Enemy : NSObject {
         
         let spTexture = SKTexture(imageNamed: imageName)
         enemySprite = SKSpriteNode(texture: spTexture!)
-        enemySprite?.name = spriteName
+        enemySprite?.name = Enemy.SpriteName()
         
         enemySprite?.physicsBody = SKPhysicsBody(texture: spTexture, size: enemySprite!.size)
         enemySprite?.physicsBody?.dynamic = false
@@ -42,7 +44,7 @@ class Enemy : NSObject {
     
     func fireGun() {
         if (enemySprite != nil && enemySprite!.parent != nil) {
-            if (enemySprite?.name == spriteName) {
+            if (enemySprite?.name == Enemy.SpriteName()) {
                 // only fire if sprite is still an enemy, i.e. not when explodiing
                 var shot = EnemyShot(parentNode: enemySprite!.parent!, pos:CGPointMake(enemySprite!.position.x,enemySprite!.position.y-enemySprite!.size.height))
                     shot.Shoot()

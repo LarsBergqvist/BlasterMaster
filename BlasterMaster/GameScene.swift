@@ -21,7 +21,7 @@ let enemyShotBitMask:UInt32 = 0x08
 
 class GameScene: SKScene {
     
-    let spaceShip:SpaceShip = SpaceShip()
+    let spaceShip:SpaceShip = SpaceShip(initialYPos: 100.0)
     
     let motionManager: CMMotionManager = CMMotionManager()
         
@@ -49,7 +49,7 @@ class GameScene: SKScene {
         livesLabel.position = CGPointMake(self.frame.width-200,0)
         self.addChild(livesLabel)
 
-        spaceShip.addShipToParent(self,pos: CGPointMake( CGRectGetMidX(self.frame), CGFloat(playerYPos)))
+        spaceShip.addShipToParent(self,pos: CGPointMake( CGRectGetMidX(self.frame), spaceShip.initialYPos))
         
         motionManager.startAccelerometerUpdates()
         
@@ -159,7 +159,7 @@ class GameScene: SKScene {
             waitCounter = 0
         }
         waitCounter++
-        spaceShip.shipSprite.position.y = CGFloat(playerYPos)
+//        spaceShip.shipSprite.position.y = CGFloat(playerYPos)
         scrollBackground()
 
     }
@@ -183,22 +183,35 @@ class GameScene: SKScene {
         if let data = motionManager.accelerometerData {
             
             if (data.acceleration.x > 0.2) {
-                spaceShip.moveLeft = false
-                spaceShip.moveRight = true
-                spaceShip.speed = fabs(data.acceleration.x)
+                spaceShip.horizontalAction = .MoveRight
+                spaceShip.horizontalSpeed = fabs(data.acceleration.x)
                 
             }
             else if (data.acceleration.x < -0.2) {
-                spaceShip.moveLeft = true
-                spaceShip.moveRight = false
-                spaceShip.speed = fabs(data.acceleration.x)
+                spaceShip.horizontalAction = .MoveLeft
+                spaceShip.horizontalSpeed = fabs(data.acceleration.x)
                 
             }
             else {
-                spaceShip.moveLeft = false
-                spaceShip.moveRight = false
-                spaceShip.speed = 0.0
+                spaceShip.horizontalAction = .None
+                spaceShip.horizontalSpeed = 0.0
             }
+            
+            if (data.acceleration.y > 0.2) {
+                spaceShip.verticalAction = .MoveUp
+                spaceShip.verticalSpeed = fabs(data.acceleration.y)
+                
+            }
+            else if (data.acceleration.y < -0.2) {
+                spaceShip.verticalAction = .MoveDown
+                spaceShip.verticalSpeed = fabs(data.acceleration.y)
+                
+            }
+            else {
+                spaceShip.verticalAction = .None
+                spaceShip.verticalSpeed = 0.0
+            }
+
         }
     }
     

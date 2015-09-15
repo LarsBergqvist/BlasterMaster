@@ -11,14 +11,33 @@ import SpriteKit
 import AVFoundation
 
 class SpaceShip : NSObject, AVAudioPlayerDelegate {
+
+    enum HorizontalAction {
+        case None
+        case MoveLeft
+        case MoveRight
+    }
+    
+    enum VerticalAction {
+        case None
+        case MoveUp
+        case MoveDown
+    }
+    
     var firePressed:Bool = false
-    var moveLeft:Bool = false
-    var moveRight:Bool = false
-    var speed = Double(0.0)
+    var horizontalAction:HorizontalAction = HorizontalAction.None
+    var verticalAction:VerticalAction = VerticalAction.None
+    var horizontalSpeed = Double(0.0)
+    var verticalSpeed = Double(0.0)
     let speedFactor = 30.0
     
     let shipSprite:SKSpriteNode = SKSpriteNode(imageNamed: "playerShip1_blue")
 
+    var initialYPos:CGFloat = 0.0
+    
+    init (initialYPos:CGFloat) {
+        self.initialYPos = initialYPos
+    }
     
     func addShipToParent(parent:SKNode, pos:CGPoint) -> Void {
         shipSprite.xScale = 1
@@ -51,16 +70,31 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
             }
             fireWaitCount++
         }
-        if (moveLeft) {
+        
+        if (horizontalAction == .MoveLeft) {
             if (shipSprite.position.x > 0 ) {
-                shipSprite.position.x -= CGFloat(speedFactor)*CGFloat(speed)
+                shipSprite.position.x -= CGFloat(speedFactor)*CGFloat(horizontalSpeed)
             }
         }
-        if (moveRight) {
+        else if (horizontalAction == .MoveRight) {
             if (shipSprite.position.x < shipSprite.parent?.frame.width ) {
-                shipSprite.position.x += CGFloat(speedFactor)*CGFloat(speed)
+                shipSprite.position.x += CGFloat(speedFactor)*CGFloat(horizontalSpeed)
             }
         }
+        
+        if (verticalAction == .MoveDown) {
+            var newPos = shipSprite.position.y - CGFloat(speedFactor)*CGFloat(verticalSpeed)
+            if (newPos >= initialYPos ) {
+                shipSprite.position.y = newPos
+            }
+        }
+        else if (verticalAction == .MoveUp) {
+            var newPos = shipSprite.position.y + CGFloat(speedFactor)*CGFloat(verticalSpeed)
+            if (newPos < (shipSprite.parent?.frame.height)!/2 ) {
+                shipSprite.position.y = newPos
+            }
+        }
+
     }
     
     func fireLaser() -> Void {

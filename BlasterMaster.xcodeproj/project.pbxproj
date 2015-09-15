@@ -126,16 +126,16 @@
 				8000038E1BA5FB4700D07555 /* LaunchScreen.xib */,
 				8000037F1BA5FB4600D07555 /* Supporting Files */,
 				800003A51BA6059000D07555 /* SpaceShip.swift */,
-				80F415F41BA694790012F0EB /* BackgroundMusic.swift */,
-				80F415F61BA6A23D0012F0EB /* LaserShot.swift */,
 				80F415F81BA6A2EC0012F0EB /* EnemySpawner.swift */,
-				80F415FA1BA6A8F30012F0EB /* CollisionDetector.swift */,
 				80F415FC1BA6E79E0012F0EB /* Enemy.swift */,
+				80F415F61BA6A23D0012F0EB /* LaserShot.swift */,
+				80F415F41BA694790012F0EB /* BackgroundMusic.swift */,
+				80F415FA1BA6A8F30012F0EB /* CollisionDetector.swift */,
 				80F415FE1BA6EEA90012F0EB /* EnemyShot.swift */,
-				803D5A931BA741400085E509 /* StartScene.sks */,
-				803D5A951BA741570085E509 /* GameOverScene.sks */,
 				803D5A971BA7420F0085E509 /* StartScene.swift */,
+				803D5A931BA741400085E509 /* StartScene.sks */,
 				803D5A991BA7454A0085E509 /* GameOverScene.swift */,
+				803D5A951BA741570085E509 /* GameOverScene.sks */,
 			);
 			path = BlasterMaster;
 			sourceTree = "<group>";

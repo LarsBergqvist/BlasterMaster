@@ -9,7 +9,6 @@
 import SpriteKit
 import CoreMotion
 import AudioToolbox
-import AVFoundation
 
 typealias EnemyHitHandler = ( (SKNode,SKNode) -> Void)
 typealias PlayerHitHandler = ((SKNode,SKNode) -> Void)
@@ -30,39 +29,70 @@ class GameScene: SKScene {
     var bgGfx:BackgroundGfx?
     let explosionPlayer = ExplosionPlayer()
 
-
     override func didMoveToView(view: SKView) {
 
         bgGfx = BackgroundGfx(parent:self)
+        bgGfx?.setupBackgroup()
 
-        
         self.anchorPoint = CGPointMake(0, 0)
         
-        scoreLabel.fontSize = 25;
-        scoreLabel.position = CGPointMake(100,0)
-        self.addChild(scoreLabel)
-        livesLabel.fontSize = 25;
-        livesLabel.position = CGPointMake(self.frame.width-200,0)
-        self.addChild(livesLabel)
-
+        setupPhysicsWorld()
+        
+        setupScorebar()
+        
         spaceShip.addShipToParent(self,pos: CGPointMake( CGRectGetMidX(self.frame), spaceShip.initialYPos))
         
-        motionManager.startAccelerometerUpdates()
-        
         enemySpawner = EnemySpawner(parent: self)
-        enemySpawner?.spawnNewEnemy()
-        
-        // world
-        self.physicsWorld.gravity = CGVectorMake(0, 0)
-        self.name = "edge"
-        collisionDetector = CollisionDetector(g:enemyHit, e:playerHit)
-        self.physicsWorld.contactDelegate = collisionDetector
         
         updateScoreLabel()
+        
         updateLivesLabel()
         
         bgMusic.playSound()
 
+        motionManager.startAccelerometerUpdates()
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        /* Called when a touch begins */
+        
+        for touch in (touches as! Set<UITouch>) {
+            let location = touch.locationInNode(self)
+            
+            spaceShip.firePressed = true
+            
+        }
+    }
+    
+    
+    var waitCounter = 0
+    override func update(currentTime: CFTimeInterval) {
+        /* Called before each frame is rendered */
+        
+        processUserMotionForUpdate(currentTime)
+        
+        spaceShip.updateActions()
+        
+        spawnNewEnemy()
+        
+        if (waitCounter > 100)
+        {
+            enemySpawner?.removeEnemiesOutsideScreen()
+            waitCounter = 0
+        }
+        waitCounter++
+        
+        bgGfx?.scrollBackground()
+        
+    }
+
+    
+    func setupPhysicsWorld()
+    {
+        self.physicsWorld.gravity = CGVectorMake(0, 0)
+        self.name = "edge"
+        collisionDetector = CollisionDetector(g:enemyHit, e:playerHit)
+        self.physicsWorld.contactDelegate = collisionDetector
     }
     
     let explosion = ExplosionAtlas()
@@ -78,7 +108,6 @@ class GameScene: SKScene {
         explosionPlayer.playSound()
         
         let expl = SKAction.animateWithTextures(explosion.expl_01_(), timePerFrame: 0.05)
-        
         var enemySprite = enemyNode as! SKSpriteNode
         enemySprite.runAction(expl, completion: { () -> Void in
             enemyNode.removeFromParent()
@@ -109,36 +138,8 @@ class GameScene: SKScene {
     }
 
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        /* Called when a touch begins */
-        
-        for touch in (touches as! Set<UITouch>) {
-            let location = touch.locationInNode(self)
-
-            spaceShip.firePressed = true
-
-        }
-    }
-    
-   
-    var waitCounter = 0
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        processUserMotionForUpdate(currentTime)
-        spaceShip.updateActions()
-        spawnNewEnemy()
-        if (waitCounter > 100)
-        {
-            enemySpawner?.removeEnemiesOutsideScreen()
-            waitCounter = 0
-        }
-        waitCounter++
-        bgGfx?.scrollBackground()
-
-    }
-    
-    var count = 0
     var timeBetweenSpawns=200
+    var count = 0
     func spawnNewEnemy() {
         if (count > timeBetweenSpawns)
         {
@@ -202,6 +203,16 @@ class GameScene: SKScene {
     
     func updateLivesLabel() {
         livesLabel.text = "Lives: \(lives)"
+    }
+
+    func setupScorebar()
+    {
+        scoreLabel.fontSize = 25;
+        scoreLabel.position = CGPointMake(100,0)
+        self.addChild(scoreLabel)
+        livesLabel.fontSize = 25;
+        livesLabel.position = CGPointMake(self.frame.width-200,0)
+        self.addChild(livesLabel)
     }
 
 

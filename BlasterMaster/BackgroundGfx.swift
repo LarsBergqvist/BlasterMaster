@@ -45,14 +45,13 @@ class BackgroundGfx {
     }
     
     func setupBackgroup() {
-        for j in 0...3 {
-            
-            for i in 0...1 {
-                var bg = SKSpriteNode(imageNamed: "blue")
-                bg.xScale = 2.0
-                bg.yScale = 2.0
+        for row in 0...2 {
+            for col in 0...1 {
+                var bg = SKSpriteNode(imageNamed: "space3")
+                bg.xScale = 4.0
+                bg.yScale = 4.0
                 bg.anchorPoint = CGPointZero
-                bg.position = CGPointMake(CGFloat(i) * bg.size.width, CGFloat(j)*bg.size.height)
+                bg.position = CGPointMake(CGFloat(col) * bg.size.width, CGFloat(row)*bg.size.height)
                 bg.name = "background"
                 bg.zPosition = -10
                 bgHeight = bg.size.height

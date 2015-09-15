@@ -32,12 +32,9 @@ class EnemyShot {
         laserSprite.physicsBody?.allowsRotation = false
         laserSprite.name = EnemyShot.SpriteName()
         
-        
         laserSprite.physicsBody?.categoryBitMask = enemyShotBitMask
         laserSprite.physicsBody?.collisionBitMask = playerBitMask
         laserSprite.physicsBody?.contactTestBitMask = playerBitMask
-        
-        
     }
     
     func Shoot() -> Void {

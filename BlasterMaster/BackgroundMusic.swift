@@ -14,12 +14,8 @@ class BackGroundMusic : NSObject, AVAudioPlayerDelegate {
     
     func playSound(){
         var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ArturiaMood1", ofType: "mp3")!)
-        
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
+                
+        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
         avPlayer.numberOfLoops = -1
         avPlayer.volume = 0.1
         avPlayer.prepareToPlay()

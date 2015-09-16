@@ -16,11 +16,7 @@ class ExplosionPlayer {
         
         var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Expl1", ofType: "caf")!)
         
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
+        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
         avPlayer.volume = 1.0
         avPlayer.prepareToPlay()
         avPlayer.play()

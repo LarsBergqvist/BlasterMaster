@@ -8,7 +8,7 @@
 
 import SpriteKit
 import CoreMotion
-import AudioToolbox
+//import AudioToolbox
 
 typealias EnemyHitHandler = ( (SKNode,SKNode) -> Void)
 typealias PlayerHitHandler = ((SKNode,SKNode,CGPoint) -> Void)
@@ -123,7 +123,7 @@ class GameScene: SKScene {
         hitObject.removeFromParent()
         
         // Vibrate device
-        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+//        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         // Animate a hit on the player ship
         var pointInSprite = player.convertPoint(contactPoint, fromNode: self)

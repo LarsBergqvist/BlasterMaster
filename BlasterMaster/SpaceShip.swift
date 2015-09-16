@@ -113,11 +113,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     func playSound(){
         var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Laser1", ofType: "caf")!)
         
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        
-        var error:NSError?
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: &error)
+        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
         avPlayer.volume = 0.5
         avPlayer.prepareToPlay()
         avPlayer.play()

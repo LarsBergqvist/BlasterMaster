@@ -18,28 +18,28 @@ class EnemySpawner: NSObject {
     
     func spawnNewEnemy() {
         
-        var imgIdx = Int(arc4random_uniform(UInt32(images.count)))
-        var imageName = images[imgIdx]
+        let imgIdx = Int(arc4random_uniform(UInt32(images.count)))
+        let imageName = images[imgIdx]
         var canFire = false
         if (imageName == "enemyRed1" || imageName == "ufoRed") {
             canFire=true
         }
-        var enemy = Enemy(imageName: imageName, canFire: canFire)
+        let enemy = Enemy(imageName: imageName, canFire: canFire)
         
-        var sp = enemy.enemySprite!
+        let sp = enemy.enemySprite!
 
         parentNode?.addChild(sp)
         
-        var dice1 = arc4random_uniform(UInt32(sp.parent!.frame.size.width-sp.size.width))
+        let dice1 = arc4random_uniform(UInt32(sp.parent!.frame.size.width-sp.size.width))
         
 
         sp.position = CGPointMake(CGFloat(dice1)+sp.size.width/2,sp.parent!.frame.height+sp.size.height)
-        var speed = Int(arc4random_uniform(3))+3
-        var moveAction = SKAction.moveToY(-100, duration: NSTimeInterval(speed))
+        let speed = Int(arc4random_uniform(3))+3
+        let moveAction = SKAction.moveToY(-100, duration: NSTimeInterval(speed))
         sp.runAction(moveAction)
         
         if (imageName == "ufoBlue" || imageName == "ufoRed" || imageName == "ufoGreen" || imageName == "ufoYellow") {
-            var rotAction = SKAction.rotateByAngle( CGFloat(2*M_PI), duration: 1.0)
+            let rotAction = SKAction.rotateByAngle( CGFloat(2*M_PI), duration: 1.0)
             sp.runAction(SKAction.repeatActionForever(rotAction))
         }
     }
@@ -51,7 +51,7 @@ class EnemySpawner: NSObject {
             node,stop in
             if let name = node.name {
                 if (name == Enemy.SpriteName() || name == EnemyShot.SpriteName()) {
-                    var finalPos = -80.0
+                    let finalPos = -80.0
                     
                     if (node.position.y <= CGFloat(finalPos)) {
                         node.removeFromParent()

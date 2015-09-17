@@ -14,7 +14,6 @@
 		8000038B1BA5FB4700D07555 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 800003891BA5FB4700D07555 /* Main.storyboard */; };
 		8000038D1BA5FB4700D07555 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8000038C1BA5FB4700D07555 /* Images.xcassets */; };
 		800003901BA5FB4700D07555 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8000038E1BA5FB4700D07555 /* LaunchScreen.xib */; };
-		8000039C1BA5FB4700D07555 /* BlasterMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8000039B1BA5FB4700D07555 /* BlasterMasterTests.swift */; };
 		800003A61BA6059000D07555 /* SpaceShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800003A51BA6059000D07555 /* SpaceShip.swift */; };
 		800003AA1BA6104800D07555 /* Laser1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 800003A91BA6104800D07555 /* Laser1.caf */; };
 		803D5A941BA741400085E509 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 803D5A931BA741400085E509 /* StartScene.sks */; };
@@ -60,8 +59,6 @@
 		8000038C1BA5FB4700D07555 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8000038F1BA5FB4700D07555 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		800003951BA5FB4700D07555 /* BlasterMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlasterMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8000039A1BA5FB4700D07555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8000039B1BA5FB4700D07555 /* BlasterMasterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlasterMasterTests.swift; sourceTree = "<group>"; };
 		800003A51BA6059000D07555 /* SpaceShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceShip.swift; sourceTree = "<group>"; };
 		800003A91BA6104800D07555 /* Laser1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Laser1.caf; sourceTree = "<group>"; };
 		803D5A931BA741400085E509 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
@@ -108,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				8000037E1BA5FB4600D07555 /* BlasterMaster */,
-				800003981BA5FB4700D07555 /* BlasterMasterTests */,
 				8000037D1BA5FB4600D07555 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,23 +157,6 @@
 				80F416081BA71A600012F0EB /* Expl1.caf */,
 				800003A91BA6104800D07555 /* Laser1.caf */,
 				800003801BA5FB4700D07555 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		800003981BA5FB4700D07555 /* BlasterMasterTests */ = {
-			isa = PBXGroup;
-			children = (
-				8000039B1BA5FB4700D07555 /* BlasterMasterTests.swift */,
-				800003991BA5FB4700D07555 /* Supporting Files */,
-			);
-			path = BlasterMasterTests;
-			sourceTree = "<group>";
-		};
-		800003991BA5FB4700D07555 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8000039A1BA5FB4700D07555 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -244,7 +223,9 @@
 		800003741BA5FB4600D07555 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Lars Bergqvist";
 				TargetAttributes = {
 					8000037B1BA5FB4600D07555 = {
@@ -333,7 +314,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8000039C1BA5FB4700D07555 /* BlasterMasterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +368,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -456,6 +437,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BlasterMaster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -467,6 +449,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BlasterMaster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -486,6 +469,7 @@
 				);
 				INFOPLIST_FILE = BlasterMasterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlasterMaster.app/BlasterMaster";
 			};
@@ -501,6 +485,7 @@
 				);
 				INFOPLIST_FILE = BlasterMasterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlasterMaster.app/BlasterMaster";
 			};

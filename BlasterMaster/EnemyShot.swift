@@ -24,7 +24,7 @@ class EnemyShot {
         position = pos
         
         let spTexture = SKTexture(imageNamed: "laserRed13")
-        laserSprite = SKSpriteNode(texture: spTexture!)
+        laserSprite = SKSpriteNode(texture: spTexture)
         laserSprite.physicsBody = SKPhysicsBody(circleOfRadius: laserSprite.size.height/2)
         
 //        laserSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: laserSprite.size)
@@ -41,8 +41,8 @@ class EnemyShot {
         laserSprite.position = self.position
         
         parent?.addChild(laserSprite)
-        var finalPos = -80.0
-        var moveAction = SKAction.moveToY(CGFloat(finalPos), duration: 0.5)
+        let finalPos = -80.0
+        let moveAction = SKAction.moveToY(CGFloat(finalPos), duration: 0.5)
         moveAction.timingMode = SKActionTimingMode.EaseInEaseOut
         laserSprite.runAction(moveAction)
     }

@@ -25,7 +25,7 @@ class Enemy : NSObject {
         canFireLaser = canFire
         
         let spTexture = SKTexture(imageNamed: imageName)
-        enemySprite = SKSpriteNode(texture: spTexture!)
+        enemySprite = SKSpriteNode(texture: spTexture)
         enemySprite?.name = Enemy.SpriteName()
         
         enemySprite?.physicsBody = SKPhysicsBody(texture: spTexture, size: enemySprite!.size)
@@ -46,7 +46,7 @@ class Enemy : NSObject {
         if (enemySprite != nil && enemySprite!.parent != nil) {
             if (enemySprite?.name == Enemy.SpriteName()) {
                 // only fire if sprite is still an enemy, i.e. not when explodiing
-                var shot = EnemyShot(parentNode: enemySprite!.parent!, pos:CGPointMake(enemySprite!.position.x,enemySprite!.position.y-enemySprite!.size.height))
+                let shot = EnemyShot(parentNode: enemySprite!.parent!, pos:CGPointMake(enemySprite!.position.x,enemySprite!.position.y-enemySprite!.size.height))
                     shot.Shoot()
             }
         }

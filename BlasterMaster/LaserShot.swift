@@ -24,7 +24,7 @@ class LaserShot {
         position = pos
         
         let spTexture = SKTexture(imageNamed: "laserBlue01")
-        laserSprite = SKSpriteNode(texture: spTexture!)
+        laserSprite = SKSpriteNode(texture: spTexture)
         laserSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: laserSprite.size)
         laserSprite.physicsBody?.dynamic = true
         laserSprite.physicsBody?.allowsRotation = false
@@ -42,8 +42,8 @@ class LaserShot {
         laserSprite.position = self.position
         
         parent?.addChild(laserSprite)
-        var finalPos = laserSprite.parent?.frame.height
-        var moveAction = SKAction.moveByX(0, y: finalPos!+200.0, duration: 0.7)
+        let finalPos = laserSprite.parent?.frame.height
+        let moveAction = SKAction.moveByX(0, y: finalPos!+200.0, duration: 0.7)
         moveAction.timingMode = SKActionTimingMode.EaseInEaseOut
         laserSprite.runAction(moveAction)
     }

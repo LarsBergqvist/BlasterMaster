@@ -12,8 +12,7 @@ class CollisionDetector : NSObject, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact:SKPhysicsContact){
-        if (contact.bodyA != nil && contact.bodyA.node != nil && contact.bodyB != nil && contact.bodyB.node != nil)
-        {
+        if (contact.bodyA.node != nil && contact.bodyB.node != nil)  {
             let node2:SKNode = contact.bodyB.node!
             let node1:SKNode = contact.bodyA.node!
             let name1 = node1.name;

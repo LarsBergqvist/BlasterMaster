@@ -8,7 +8,7 @@
 
 import SpriteKit
 import CoreMotion
-//import AudioToolbox
+import AudioToolbox
 
 typealias EnemyHitHandler = ( (SKNode,SKNode) -> Void)
 typealias PlayerHitHandler = ((SKNode,SKNode,CGPoint) -> Void)
@@ -53,15 +53,11 @@ class GameScene: SKScene {
         motionManager.startAccelerometerUpdates()
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         
-        for touch in (touches as! Set<UITouch>) {
-            let location = touch.locationInNode(self)
+        spaceShip.firePressed = true
             
-            spaceShip.firePressed = true
-            
-        }
     }
     
     
@@ -108,7 +104,7 @@ class GameScene: SKScene {
         explosionPlayer.playSound()
         
         let expl = SKAction.animateWithTextures(explosion.expl_01_(), timePerFrame: 0.05)
-        var enemySprite = enemyNode as! SKSpriteNode
+        let enemySprite = enemyNode as! SKSpriteNode
         enemySprite.runAction(expl, completion: { () -> Void in
             enemyNode.removeFromParent()
             
@@ -123,11 +119,11 @@ class GameScene: SKScene {
         hitObject.removeFromParent()
         
         // Vibrate device
-//        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         // Animate a hit on the player ship
-        var pointInSprite = player.convertPoint(contactPoint, fromNode: self)
-        var hit = SKSpriteNode(texture: hitAtlas.laserBlue08())
+        let pointInSprite = player.convertPoint(contactPoint, fromNode: self)
+        let hit = SKSpriteNode(texture: hitAtlas.laserBlue08())
         hit.position = pointInSprite
         hit.zPosition = 10
         player.addChild(hit)
@@ -224,7 +220,7 @@ class GameScene: SKScene {
         var energyBar = ""
         if (energy > 0)
         {
-            for i in 0...energy-1 {
+            for _ in 0...energy-1 {
                 energyBar += "❤️"
             }
         }

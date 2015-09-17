@@ -14,12 +14,17 @@ class ExplosionPlayer {
     
     func playSound(){
         
-        var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Expl1", ofType: "caf")!)
+        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Expl1", ofType: "caf")!)
         
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
-        avPlayer.volume = 1.0
-        avPlayer.prepareToPlay()
-        avPlayer.play()
+        do {
+            avPlayer = try AVAudioPlayer(contentsOfURL: url)
+            avPlayer.volume = 1.0
+            avPlayer.prepareToPlay()
+            avPlayer.play()
+        }
+        catch _ {
+            
+        }
     }
     
 }

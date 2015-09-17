@@ -13,13 +13,17 @@ class BackGroundMusic : NSObject, AVAudioPlayerDelegate {
     var avPlayer = AVAudioPlayer()
     
     func playSound(){
-        var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ArturiaMood1", ofType: "mp3")!)
-                
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
-        avPlayer.numberOfLoops = -1
-        avPlayer.volume = 0.1
-        avPlayer.prepareToPlay()
-        avPlayer.play()
+        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ArturiaMood1", ofType: "mp3")!)
+        
+        do {
+            avPlayer = try AVAudioPlayer(contentsOfURL: url)
+            avPlayer.numberOfLoops = -1
+            avPlayer.volume = 0.1
+            avPlayer.prepareToPlay()
+            avPlayer.play()
+        }
+        catch _ {
+        }
     }
     
     func StopSound() {

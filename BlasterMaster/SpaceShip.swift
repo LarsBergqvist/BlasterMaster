@@ -87,13 +87,13 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         }
         
         if (verticalAction == .MoveDown) {
-            var newPos = shipSprite.position.y - CGFloat(speedFactor)*CGFloat(verticalSpeed)
+            let newPos = shipSprite.position.y - CGFloat(speedFactor)*CGFloat(verticalSpeed)
             if (newPos >= initialYPos ) {
                 shipSprite.position.y = newPos
             }
         }
         else if (verticalAction == .MoveUp) {
-            var newPos = shipSprite.position.y + CGFloat(speedFactor)*CGFloat(verticalSpeed)
+            let newPos = shipSprite.position.y + CGFloat(speedFactor)*CGFloat(verticalSpeed)
             if (newPos < (shipSprite.parent?.frame.height)!/2 ) {
                 shipSprite.position.y = newPos
             }
@@ -102,7 +102,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     }
     
     func fireLaser() -> Void {
-        var shot = LaserShot(parentNode: shipSprite.parent!, pos: CGPointMake(shipSprite.position.x, shipSprite.position.y+shipSprite.size.height))
+        let shot = LaserShot(parentNode: shipSprite.parent!, pos: CGPointMake(shipSprite.position.x, shipSprite.position.y+shipSprite.size.height))
         shot.Shoot()
         playSound()
         removeShotsOutsideScreen()
@@ -111,16 +111,21 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     var avPlayer = AVAudioPlayer()
     
     func playSound(){
-        var url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Laser1", ofType: "caf")!)
+        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Laser1", ofType: "caf")!)
         
-        avPlayer = AVAudioPlayer(contentsOfURL: url, error: nil)
-        avPlayer.volume = 0.5
-        avPlayer.prepareToPlay()
-        avPlayer.play()
-        avPlayer.delegate = self
+        do {
+            avPlayer = try AVAudioPlayer(contentsOfURL: url)
+            avPlayer.volume = 0.5
+            avPlayer.prepareToPlay()
+            avPlayer.play()
+            avPlayer.delegate = self
+        }
+        catch _ {
+            
+        }
     }
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
     }
     
     func removeShotsOutsideScreen() {
@@ -128,7 +133,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
             node,stop in
             if let name = node.name {
                 if (name == LaserShot.SpriteName()) {
-                    var finalPos = node.parent?.frame.height
+                    let finalPos = node.parent?.frame.height
 
                     if (node.position.y >= finalPos) {
                         node.removeFromParent()

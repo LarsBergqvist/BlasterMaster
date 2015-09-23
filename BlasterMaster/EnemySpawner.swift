@@ -21,7 +21,7 @@ class EnemySpawner: NSObject {
         let imgIdx = Int(arc4random_uniform(UInt32(images.count)))
         let imageName = images[imgIdx]
         var canFire = false
-        if (imageName == "enemyRed1" || imageName == "ufoRed") {
+        if (imageName.containsString("Red")) {
             canFire=true
         }
         let enemy = Enemy(imageName: imageName, canFire: canFire)
@@ -36,12 +36,12 @@ class EnemySpawner: NSObject {
         let startPos = CGPointMake(CGFloat(dice1)+sp.size.width/2,sp.parent!.frame.height+sp.size.height)
         sp.position = startPos
         let speed = Int(arc4random_uniform(3))+3
-        let res = GetFinalPosAndArc(startPos,targetPoint: targetPoint)
+        let res = GetFinalPosAndAngle(startPos,targetPoint: targetPoint)
         let moveAction = SKAction.moveTo(res.finalPos, duration: NSTimeInterval(speed))
         enemy.finalPos = res.finalPos
         sp.runAction(moveAction)
         
-        if (imageName == "ufoBlue" || imageName == "ufoRed" || imageName == "ufoGreen" || imageName == "ufoYellow") {
+        if (imageName.containsString("ufo")) {
             let rotAction = SKAction.rotateByAngle( CGFloat(2*M_PI), duration: 1.0)
             sp.runAction(SKAction.repeatActionForever(rotAction))
         }
@@ -50,18 +50,18 @@ class EnemySpawner: NSObject {
         }
     }
     
-    func GetFinalPosAndArc(startPos:CGPoint,targetPoint:CGPoint) -> (finalPos:CGPoint,arc:CGFloat)
+    func GetFinalPosAndAngle(startPos:CGPoint,targetPoint:CGPoint) -> (finalPos:CGPoint,arc:CGFloat)
     {
         let dx = targetPoint.x-startPos.x
         let dy = startPos.y-targetPoint.y
         let ratio = (dx)/(dy)
         let x = startPos.x + ratio*(startPos.y)
-        let arc = atan2(dx,dy)
+        let angle = atan2(dx,dy)
         
-        return (CGPointMake(x, -100), arc)
+        return (CGPointMake(x, -100), angle)
     }
     
-    let images = ["enemyBlack1","enemyBlack2","enemyBlack3","enemyBlack4","enemyBlack5","enemyRed1","ufoBlue","ufoGreen","ufoRed","ufoYellow"]
+    let images = ["enemyBlack1","enemyBlack2","enemyBlack3","enemyBlack4","enemyBlack5","enemyRed1","enemyRed2","enemyRed3","enemyRed4","ufoBlue","ufoGreen","ufoRed","ufoYellow"]
     let images2 = ["enemyRed1"]
     
     func removeEnemiesOutsideScreen() {

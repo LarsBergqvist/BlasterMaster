@@ -19,6 +19,8 @@ class Enemy : NSObject {
         return "enemy"
     }
     
+    var finalPos: CGPoint = CGPointMake(0, 0)
+    
     init(imageName:String,canFire:Bool) {
         super.init()
         
@@ -47,7 +49,7 @@ class Enemy : NSObject {
             if (enemySprite?.name == Enemy.SpriteName()) {
                 // only fire if sprite is still an enemy, i.e. not when explodiing
                 let shot = EnemyShot(parentNode: enemySprite!.parent!, pos:CGPointMake(enemySprite!.position.x,enemySprite!.position.y-enemySprite!.size.height))
-                    shot.Shoot()
+                    shot.Shoot(finalPos)
             }
         }
     }

@@ -114,6 +114,7 @@ class GameScene: SKScene {
     let hitAtlas = HitAtlas()
     
     func playerHit(player:SKNode,hitObject:SKNode,contactPoint:CGPoint) {
+        hitObject.name = ""
         energy--
         updateEnergyMeter()
         hitObject.removeFromParent()
@@ -157,7 +158,7 @@ class GameScene: SKScene {
     func spawnNewEnemy() {
         if (count > timeBetweenSpawns)
         {
-            enemySpawner?.spawnNewEnemy()
+            enemySpawner?.spawnNewEnemy(spaceShip.GetCurrentPosition())
             count=0
             if (timeBetweenSpawns > 20) {
                 timeBetweenSpawns -= 10

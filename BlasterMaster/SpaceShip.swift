@@ -37,6 +37,10 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     
     let shipSprite:SKSpriteNode = SKSpriteNode(imageNamed: "playerShip1_blue")
 
+    func GetCurrentPosition() -> CGPoint {        
+        return shipSprite.position
+    }
+    
     var initialYPos:CGFloat = 0.0
     
     init (initialYPos:CGFloat) {

@@ -16,7 +16,7 @@ class EnemySpawner: NSObject {
         parentNode = parent
     }
     
-    func spawnNewEnemy() {
+    func spawnNewEnemy(targetPoint:CGPoint) {
         
         let imgIdx = Int(arc4random_uniform(UInt32(images.count)))
         let imageName = images[imgIdx]
@@ -33,18 +33,36 @@ class EnemySpawner: NSObject {
         let dice1 = arc4random_uniform(UInt32(sp.parent!.frame.size.width-sp.size.width))
         
 
-        sp.position = CGPointMake(CGFloat(dice1)+sp.size.width/2,sp.parent!.frame.height+sp.size.height)
+        let startPos = CGPointMake(CGFloat(dice1)+sp.size.width/2,sp.parent!.frame.height+sp.size.height)
+        sp.position = startPos
         let speed = Int(arc4random_uniform(3))+3
-        let moveAction = SKAction.moveToY(-100, duration: NSTimeInterval(speed))
+        let res = GetFinalPosAndArc(startPos,targetPoint: targetPoint)
+        let moveAction = SKAction.moveTo(res.finalPos, duration: NSTimeInterval(speed))
+        enemy.finalPos = res.finalPos
         sp.runAction(moveAction)
         
         if (imageName == "ufoBlue" || imageName == "ufoRed" || imageName == "ufoGreen" || imageName == "ufoYellow") {
             let rotAction = SKAction.rotateByAngle( CGFloat(2*M_PI), duration: 1.0)
             sp.runAction(SKAction.repeatActionForever(rotAction))
         }
+        else {
+            sp.zRotation = res.arc
+        }
+    }
+    
+    func GetFinalPosAndArc(startPos:CGPoint,targetPoint:CGPoint) -> (finalPos:CGPoint,arc:CGFloat)
+    {
+        let dx = targetPoint.x-startPos.x
+        let dy = startPos.y-targetPoint.y
+        let ratio = (dx)/(dy)
+        let x = startPos.x + ratio*(startPos.y)
+        let arc = atan2(dx,dy)
+        
+        return (CGPointMake(x, -100), arc)
     }
     
     let images = ["enemyBlack1","enemyBlack2","enemyBlack3","enemyBlack4","enemyBlack5","enemyRed1","ufoBlue","ufoGreen","ufoRed","ufoYellow"]
+    let images2 = ["enemyRed1"]
     
     func removeEnemiesOutsideScreen() {
         parentNode?.enumerateChildNodesWithName("*") {

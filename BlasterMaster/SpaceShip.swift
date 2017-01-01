@@ -9,30 +9,6 @@
 import Foundation
 import SpriteKit
 import AVFoundation
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
-}
-
 
 class SpaceShip : NSObject, AVAudioPlayerDelegate {
 
@@ -109,7 +85,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
             }
         }
         else if (horizontalAction == .moveRight) {
-            if (shipSprite.position.x < shipSprite.parent?.frame.width ) {
+            if (shipSprite.position.x < (shipSprite.parent?.frame.width)! ) {
                 shipSprite.position.x += CGFloat(speedFactor)*CGFloat(horizontalSpeed)
             }
         }
@@ -163,7 +139,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
                 if (name == LaserShot.SpriteName()) {
                     let finalPos = node.parent?.frame.height
 
-                    if (node.position.y >= finalPos) {
+                    if (node.position.y >= finalPos!) {
                         node.removeFromParent()
                     }
                 }

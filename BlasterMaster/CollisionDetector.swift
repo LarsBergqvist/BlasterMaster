@@ -6,12 +6,12 @@ class CollisionDetector : NSObject, SKPhysicsContactDelegate {
     var enemyHitHandler : EnemyHitHandler?
     var playerHitHandler : PlayerHitHandler?
     
-    init(g:EnemyHitHandler,e:PlayerHitHandler) {
+    init(g:@escaping EnemyHitHandler,e:@escaping PlayerHitHandler) {
         enemyHitHandler = g
         playerHitHandler = e
     }
     
-    func didBeginContact(contact:SKPhysicsContact){
+    func didBegin(_ contact:SKPhysicsContact){
         if (contact.bodyA.node != nil && contact.bodyB.node != nil)  {
             let node2:SKNode = contact.bodyB.node!
             let node1:SKNode = contact.bodyA.node!

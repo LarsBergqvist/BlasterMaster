@@ -17,7 +17,7 @@ class EnemyShot {
 
     var laserSprite = SKSpriteNode(imageNamed: "laserRed13")
     var parent:SKNode?
-    var position:CGPoint = CGPointMake(0, 0)
+    var position:CGPoint = CGPoint(x: 0, y: 0)
     
     init(parentNode:SKNode, pos:CGPoint) {
         parent = parentNode
@@ -28,7 +28,7 @@ class EnemyShot {
 //        laserSprite.physicsBody = SKPhysicsBody(circleOfRadius: laserSprite.size.height/2)
         
         laserSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: laserSprite.size)
-        laserSprite.physicsBody?.dynamic = true
+        laserSprite.physicsBody?.isDynamic = true
         laserSprite.physicsBody?.allowsRotation = false
         laserSprite.name = EnemyShot.SpriteName()
         
@@ -37,15 +37,15 @@ class EnemyShot {
         laserSprite.physicsBody?.contactTestBitMask = playerBitMask
     }
     
-    func Shoot(finalPos:CGPoint) -> Void {
+    func Shoot(_ finalPos:CGPoint) -> Void {
         laserSprite.position = self.position
         
         parent?.addChild(laserSprite)
-        let moveAction = SKAction.moveTo(finalPos, duration: 0.5)
+        let moveAction = SKAction.move(to: finalPos, duration: 0.5)
         let arc = atan2(finalPos.x-position.x,position.y-finalPos.y)
         laserSprite.zRotation = arc
-        moveAction.timingMode = SKActionTimingMode.EaseInEaseOut
-        laserSprite.runAction(moveAction)
+        moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+        laserSprite.run(moveAction)
     }
     
 }

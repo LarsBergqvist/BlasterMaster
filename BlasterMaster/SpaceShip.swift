@@ -9,6 +9,30 @@
 import Foundation
 import SpriteKit
 import AVFoundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class SpaceShip : NSObject, AVAudioPlayerDelegate {
 
@@ -17,20 +41,20 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     }
     
     enum HorizontalAction {
-        case None
-        case MoveLeft
-        case MoveRight
+        case none
+        case moveLeft
+        case moveRight
     }
     
     enum VerticalAction {
-        case None
-        case MoveUp
-        case MoveDown
+        case none
+        case moveUp
+        case moveDown
     }
     
     var firePressed:Bool = false
-    var horizontalAction:HorizontalAction = HorizontalAction.None
-    var verticalAction:VerticalAction = VerticalAction.None
+    var horizontalAction:HorizontalAction = HorizontalAction.none
+    var verticalAction:VerticalAction = VerticalAction.none
     var horizontalSpeed = Double(0.0)
     var verticalSpeed = Double(0.0)
     let speedFactor = 30.0
@@ -47,7 +71,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         self.initialYPos = initialYPos
     }
     
-    func addShipToParent(parent:SKNode, pos:CGPoint) -> Void {
+    func addShipToParent(_ parent:SKNode, pos:CGPoint) -> Void {
         shipSprite.xScale = 1
         shipSprite.yScale = 1
         shipSprite.position = pos
@@ -55,7 +79,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         let spTexture = SKTexture(imageNamed: "playerShip1_blue")
 
         shipSprite.physicsBody = SKPhysicsBody(texture: spTexture, size: shipSprite.size)
-        shipSprite.physicsBody?.dynamic = true
+        shipSprite.physicsBody?.isDynamic = true
         shipSprite.physicsBody?.allowsRotation = false
         shipSprite.name = SpaceShip.SpriteName()
 
@@ -76,27 +100,27 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
                 fireLaser()
                 fireWaitCount=0
             }
-            fireWaitCount++
+            fireWaitCount += 1
         }
         
-        if (horizontalAction == .MoveLeft) {
+        if (horizontalAction == .moveLeft) {
             if (shipSprite.position.x > 0 ) {
                 shipSprite.position.x -= CGFloat(speedFactor)*CGFloat(horizontalSpeed)
             }
         }
-        else if (horizontalAction == .MoveRight) {
+        else if (horizontalAction == .moveRight) {
             if (shipSprite.position.x < shipSprite.parent?.frame.width ) {
                 shipSprite.position.x += CGFloat(speedFactor)*CGFloat(horizontalSpeed)
             }
         }
         
-        if (verticalAction == .MoveDown) {
+        if (verticalAction == .moveDown) {
             let newPos = shipSprite.position.y - CGFloat(speedFactor)*CGFloat(verticalSpeed)
             if (newPos >= initialYPos ) {
                 shipSprite.position.y = newPos
             }
         }
-        else if (verticalAction == .MoveUp) {
+        else if (verticalAction == .moveUp) {
             let newPos = shipSprite.position.y + CGFloat(speedFactor)*CGFloat(verticalSpeed)
             if (newPos < (shipSprite.parent?.frame.height)!/2 ) {
                 shipSprite.position.y = newPos
@@ -106,7 +130,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     }
     
     func fireLaser() -> Void {
-        let shot = LaserShot(parentNode: shipSprite.parent!, pos: CGPointMake(shipSprite.position.x, shipSprite.position.y+shipSprite.size.height))
+        let shot = LaserShot(parentNode: shipSprite.parent!, pos: CGPoint(x: shipSprite.position.x, y: shipSprite.position.y+shipSprite.size.height))
         shot.Shoot()
         playSound()
         removeShotsOutsideScreen()
@@ -115,10 +139,10 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
     var avPlayer = AVAudioPlayer()
     
     func playSound(){
-        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Laser1", ofType: "caf")!)
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "Laser1", ofType: "caf")!)
         
         do {
-            avPlayer = try AVAudioPlayer(contentsOfURL: url)
+            avPlayer = try AVAudioPlayer(contentsOf: url)
             avPlayer.volume = 0.5
             avPlayer.prepareToPlay()
             avPlayer.play()
@@ -129,11 +153,11 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     }
     
     func removeShotsOutsideScreen() {
-        shipSprite.parent?.enumerateChildNodesWithName("*") {
+        shipSprite.parent?.enumerateChildNodes(withName: "*") {
             node,stop in
             if let name = node.name {
                 if (name == LaserShot.SpriteName()) {

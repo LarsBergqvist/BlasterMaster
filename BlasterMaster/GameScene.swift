@@ -29,18 +29,18 @@ class GameScene: SKScene {
     var bgGfx:BackgroundGfx?
     let explosionPlayer = ExplosionPlayer()
 
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
 
         bgGfx = BackgroundGfx(parent:self)
         bgGfx?.setupBackgroup()
 
-        self.anchorPoint = CGPointMake(0, 0)
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         
         setupPhysicsWorld()
         
         setupScorebar()
         
-        spaceShip.addShipToParent(self,pos: CGPointMake( CGRectGetMidX(self.frame), spaceShip.initialYPos))
+        spaceShip.addShipToParent(self,pos: CGPoint( x: self.frame.midX, y: spaceShip.initialYPos))
         
         enemySpawner = EnemySpawner(parent: self)
         
@@ -53,7 +53,7 @@ class GameScene: SKScene {
         motionManager.startAccelerometerUpdates()
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         
         spaceShip.firePressed = true
@@ -62,7 +62,7 @@ class GameScene: SKScene {
     
     
     var waitCounter = 0
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
         
         processUserMotionForUpdate(currentTime)
@@ -76,7 +76,7 @@ class GameScene: SKScene {
             enemySpawner?.removeEnemiesOutsideScreen()
             waitCounter = 0
         }
-        waitCounter++
+        waitCounter += 1
         
         bgGfx?.scrollBackground()
         
@@ -85,7 +85,7 @@ class GameScene: SKScene {
     
     func setupPhysicsWorld()
     {
-        self.physicsWorld.gravity = CGVectorMake(0, 0)
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.name = "edge"
         collisionDetector = CollisionDetector(g:enemyHit, e:playerHit)
         self.physicsWorld.contactDelegate = collisionDetector
@@ -93,19 +93,19 @@ class GameScene: SKScene {
     
     let explosion = ExplosionAtlas()
     
-    func enemyHit(enemyNode:SKNode,laserNode:SKNode) {
+    func enemyHit(_ enemyNode:SKNode,laserNode:SKNode) {
         laserNode.removeFromParent()
-        enemyNode.physicsBody?.dynamic = false
+        enemyNode.physicsBody?.isDynamic = false
         enemyNode.physicsBody?.categoryBitMask = 0
         enemyNode.name = ""
-        score++
+        score += 1
         updateScoreLabel()
         
         explosionPlayer.playSound()
         
-        let expl = SKAction.animateWithTextures(explosion.expl_01_(), timePerFrame: 0.05)
+        let expl = SKAction.animate(with: explosion.expl_01_(), timePerFrame: 0.05)
         let enemySprite = enemyNode as! SKSpriteNode
-        enemySprite.runAction(expl, completion: { () -> Void in
+        enemySprite.run(expl, completion: { () -> Void in
             enemyNode.removeFromParent()
             
         })
@@ -113,9 +113,9 @@ class GameScene: SKScene {
     
     let hitAtlas = HitAtlas()
     
-    func playerHit(player:SKNode,hitObject:SKNode,contactPoint:CGPoint) {
+    func playerHit(_ player:SKNode,hitObject:SKNode,contactPoint:CGPoint) {
         hitObject.name = ""
-        energy--
+        energy -= 1
         updateEnergyMeter()
         hitObject.removeFromParent()
         
@@ -123,13 +123,13 @@ class GameScene: SKScene {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         // Animate a hit on the player ship
-        let pointInSprite = player.convertPoint(contactPoint, fromNode: self)
+        let pointInSprite = player.convert(contactPoint, from: self)
         let hit = SKSpriteNode(texture: hitAtlas.laserBlue08())
         hit.position = pointInSprite
         hit.zPosition = 10
         player.addChild(hit)
-        let expl = SKAction.animateWithTextures(hitAtlas.laserBlue(), timePerFrame: 0.05)
-        hit.runAction(expl, completion: { () -> Void in
+        let expl = SKAction.animate(with: hitAtlas.laserBlue(), timePerFrame: 0.05)
+        hit.run(expl, completion: { () -> Void in
             hit.removeFromParent()
         })
         
@@ -141,12 +141,12 @@ class GameScene: SKScene {
     }
     
     func endGame() {
-        let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 3.0)
+        let transition = SKTransition.reveal(with: SKTransitionDirection.down, duration: 3.0)
         
         let scene = GameOverScene(size: self.scene!.size)
         scene.score = score
-        scene.scaleMode = SKSceneScaleMode.AspectFit
-        scene.backgroundColor = UIColor.blackColor()
+        scene.scaleMode = SKSceneScaleMode.aspectFit
+        scene.backgroundColor = UIColor.black
         
         self.scene?.view?.presentScene(scene, transition: transition)
         bgMusic.StopSound()
@@ -165,39 +165,39 @@ class GameScene: SKScene {
             }
             
         }
-        count++
+        count += 1
     }
     
-    func processUserMotionForUpdate(currentTime: CFTimeInterval) {
+    func processUserMotionForUpdate(_ currentTime: CFTimeInterval) {
         if let data = motionManager.accelerometerData {
             
             if (data.acceleration.x > 0.2) {
-                spaceShip.horizontalAction = .MoveRight
+                spaceShip.horizontalAction = .moveRight
                 spaceShip.horizontalSpeed = fabs(data.acceleration.x)
                 
             }
             else if (data.acceleration.x < -0.2) {
-                spaceShip.horizontalAction = .MoveLeft
+                spaceShip.horizontalAction = .moveLeft
                 spaceShip.horizontalSpeed = fabs(data.acceleration.x)
                 
             }
             else {
-                spaceShip.horizontalAction = .None
+                spaceShip.horizontalAction = .none
                 spaceShip.horizontalSpeed = 0.0
             }
             
             if (data.acceleration.y > 0.2) {
-                spaceShip.verticalAction = .MoveUp
+                spaceShip.verticalAction = .moveUp
                 spaceShip.verticalSpeed = fabs(data.acceleration.y)
                 
             }
             else if (data.acceleration.y < -0.2) {
-                spaceShip.verticalAction = .MoveDown
+                spaceShip.verticalAction = .moveDown
                 spaceShip.verticalSpeed = fabs(data.acceleration.y)
                 
             }
             else {
-                spaceShip.verticalAction = .None
+                spaceShip.verticalAction = .none
                 spaceShip.verticalSpeed = 0.0
             }
 
@@ -231,13 +231,13 @@ class GameScene: SKScene {
     func setupScorebar()
     {
         scoreLabel.fontSize = 25;
-        scoreLabel.position = CGPointMake(100,0)
+        scoreLabel.position = CGPoint(x: 100,y: 0)
         self.addChild(scoreLabel)
         energyLabel.fontSize = 25;
-        energyLabel.position = CGPointMake(self.frame.width-200,0)
+        energyLabel.position = CGPoint(x: self.frame.width-200,y: 0)
         self.addChild(energyLabel)
         energyMeter.fontSize = 25;
-        energyMeter.position = CGPointMake(self.frame.width-250,0)
+        energyMeter.position = CGPoint(x: self.frame.width-250,y: 0)
         self.addChild(energyMeter)
     }
 

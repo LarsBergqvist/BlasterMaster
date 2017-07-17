@@ -42,7 +42,7 @@ class EnemySpawner: NSObject {
         sp.run(moveAction)
         
         if (imageName.contains("ufo")) {
-            let rotAction = SKAction.rotate( byAngle: CGFloat(2*M_PI), duration: 1.0)
+            let rotAction = SKAction.rotate( byAngle: CGFloat(2*Double.pi), duration: 1.0)
             sp.run(SKAction.repeatForever(rotAction))
         }
         else {

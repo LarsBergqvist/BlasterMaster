@@ -44,7 +44,7 @@ class Enemy : NSObject {
         }
     }
     
-    func fireGun() {
+    @objc func fireGun() {
         if (enemySprite != nil && enemySprite!.parent != nil) {
             if (enemySprite?.name == Enemy.SpriteName()) {
                 // only fire if sprite is still an enemy, i.e. not when explodiing

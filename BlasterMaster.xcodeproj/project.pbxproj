@@ -38,16 +38,6 @@
 		80F416091BA71A600012F0EB /* Expl1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 80F416081BA71A600012F0EB /* Expl1.caf */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		800003961BA5FB4700D07555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 800003741BA5FB4600D07555 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8000037B1BA5FB4600D07555;
-			remoteInfo = BlasterMaster;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		8000037C1BA5FB4600D07555 /* BlasterMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlasterMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		800003801BA5FB4700D07555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,7 +48,6 @@
 		8000038A1BA5FB4700D07555 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8000038C1BA5FB4700D07555 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8000038F1BA5FB4700D07555 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		800003951BA5FB4700D07555 /* BlasterMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlasterMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		800003A51BA6059000D07555 /* SpaceShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceShip.swift; sourceTree = "<group>"; };
 		800003A91BA6104800D07555 /* Laser1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Laser1.caf; sourceTree = "<group>"; };
 		803D5A931BA741400085E509 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
@@ -91,13 +80,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		800003921BA5FB4700D07555 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -113,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				8000037C1BA5FB4600D07555 /* BlasterMaster.app */,
-				800003951BA5FB4700D07555 /* BlasterMasterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,24 +180,6 @@
 			productReference = 8000037C1BA5FB4600D07555 /* BlasterMaster.app */;
 			productType = "com.apple.product-type.application";
 		};
-		800003941BA5FB4700D07555 /* BlasterMasterTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 800003A21BA5FB4700D07555 /* Build configuration list for PBXNativeTarget "BlasterMasterTests" */;
-			buildPhases = (
-				800003911BA5FB4700D07555 /* Sources */,
-				800003921BA5FB4700D07555 /* Frameworks */,
-				800003931BA5FB4700D07555 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				800003971BA5FB4700D07555 /* PBXTargetDependency */,
-			);
-			name = BlasterMasterTests;
-			productName = BlasterMasterTests;
-			productReference = 800003951BA5FB4700D07555 /* BlasterMasterTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -225,24 +188,19 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Lars Bergqvist";
 				TargetAttributes = {
 					8000037B1BA5FB4600D07555 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = M28QYJ452P;
-						LastSwiftMigration = 0900;
-					};
-					800003941BA5FB4700D07555 = {
-						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0820;
-						TestTargetID = 8000037B1BA5FB4600D07555;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
 			buildConfigurationList = 800003771BA5FB4600D07555 /* Build configuration list for PBXProject "BlasterMaster" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -254,7 +212,6 @@
 			projectRoot = "";
 			targets = (
 				8000037B1BA5FB4600D07555 /* BlasterMaster */,
-				800003941BA5FB4700D07555 /* BlasterMasterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -277,13 +234,6 @@
 				8000038B1BA5FB4700D07555 /* Main.storyboard in Resources */,
 				803D5A961BA741570085E509 /* GameOverScene.sks in Resources */,
 				800003AA1BA6104800D07555 /* Laser1.caf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		800003931BA5FB4700D07555 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,22 +263,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		800003911BA5FB4700D07555 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		800003971BA5FB4700D07555 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8000037B1BA5FB4600D07555 /* BlasterMaster */;
-			targetProxy = 800003961BA5FB4700D07555 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		800003891BA5FB4700D07555 /* Main.storyboard */ = {
@@ -354,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -411,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -467,7 +404,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = LBTest.BlasterMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -482,46 +419,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = LBTest.BlasterMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		800003A31BA5FB4700D07555 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlasterMasterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlasterMaster.app/BlasterMaster";
-			};
-			name = Debug;
-		};
-		800003A41BA5FB4700D07555 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlasterMasterTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.LB.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlasterMaster.app/BlasterMaster";
 			};
 			name = Release;
 		};
@@ -542,15 +441,6 @@
 			buildConfigurations = (
 				800003A01BA5FB4700D07555 /* Debug */,
 				800003A11BA5FB4700D07555 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		800003A21BA5FB4700D07555 /* Build configuration list for PBXNativeTarget "BlasterMasterTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				800003A31BA5FB4700D07555 /* Debug */,
-				800003A41BA5FB4700D07555 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

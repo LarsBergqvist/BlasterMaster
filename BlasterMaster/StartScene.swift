@@ -29,7 +29,7 @@ class StartScene : SKScene {
         let transition = SKTransition.reveal(with: SKTransitionDirection.down, duration: 1.0)
         
         let scene = GameScene(size: self.scene!.size)
-        scene.scaleMode = SKSceneScaleMode.fill //AspectFit
+        scene.scaleMode = SKSceneScaleMode.aspectFit // fill
         scene.backgroundColor = UIColor.black
         
         self.scene?.view?.presentScene(scene, transition: transition)

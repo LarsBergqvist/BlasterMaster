@@ -71,12 +71,7 @@ class GameScene: SKScene {
         
         spawnNewEnemy()
         
-        if (waitCounter > 100)
-        {
-            enemySpawner?.removeEnemiesOutsideScreen()
-            waitCounter = 0
-        }
-        waitCounter += 1
+        enemySpawner?.removeEnemiesOutsideScreen()
         
         bgGfx?.scrollBackground()
         

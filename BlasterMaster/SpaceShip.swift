@@ -67,7 +67,7 @@ class SpaceShip : NSObject, AVAudioPlayerDelegate {
         
     }
     
-    let fireRate = 5
+    let fireRate = 10
     var fireWaitCount = 0
     func updateActions() -> Void {
         if (firePressed) {

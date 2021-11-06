@@ -9,42 +9,25 @@
 import UIKit
 import SpriteKit
 
-extension SKNode {
-    class func unarchiveFromFile(_ file : String) -> SKNode? {
-        if let path = Bundle.main.path(forResource: file, ofType: "sks") {
-            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-//            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! GameScene
-            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! StartScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
-    }
-}
 
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = StartScene.unarchiveFromFile("StartScene") as? StartScene {
-            // Configure the view.
-            scene.size = CGSize(width: 640,height: 1136)
-            let skView = self.view as! SKView
-            skView.showsFPS = false
-            skView.showsNodeCount = false
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = SKSceneScaleMode.fill// AspectFill// .AspectFit //.AspectFill
-            scene.backgroundColor = UIColor.black
-            
-            skView.presentScene(scene)
+        if let view = self.view as! SKView? {
+            // Load the SKScene from 'GameScene.sks'
+            if let scene = StartScene(fileNamed: "StartScene") {
+                // Configure the view.
+                scene.size = CGSize(width: 640,height: 1136)
+                let skView = self.view as! SKView
+                skView.showsFPS = false
+                skView.showsNodeCount = false
+                skView.ignoresSiblingOrder = true
+                scene.scaleMode = SKSceneScaleMode.fill
+                scene.backgroundColor = UIColor.black
+                view.presentScene(scene)
+            }            
         }
     }
 
